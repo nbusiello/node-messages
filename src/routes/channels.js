@@ -38,7 +38,7 @@ function create(req, res, next) {
 
   payload.channel = channel;
 
-  Message.create(payload, (err, message) => {
+  Message.create(payload, (err) => {
 
     if (err) {
       return next(err);

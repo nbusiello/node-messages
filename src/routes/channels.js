@@ -1,7 +1,8 @@
 'use strict';
 
 const express = require('express');
-const Message = require('../models/message');
+const Message = require('../models').Message;
+const auth = require('../auth');
 const router = express.Router();
 
 function filter(req, res, next) {
@@ -53,6 +54,8 @@ function showMessages(req, res) {
     channel: req.params.channel
   });
 }
+
+router.use(auth);
 
 router.get('/', (req, res) => {
 

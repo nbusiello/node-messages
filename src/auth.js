@@ -2,7 +2,7 @@
 
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
-const User = require('../models/user');
+const User = require('./models').User;
 const debug = require('debug')('strategy');
 
 passport.use(new Strategy(
@@ -41,3 +41,12 @@ passport.deserializeUser((id, done) => {
     done(null, user.toJSON());
   });
 });
+
+function isAuthenticated(req, res, next) {
+  if (!req.isAuthenticated()) {
+    return res.status(401).send('Unauthorized');
+  }
+  next();
+}
+
+module.exports = isAuthenticated;

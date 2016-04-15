@@ -1,0 +1,10 @@
+html
+  head
+  body
+    ul
+      li
+        a(href='/channels/all') all
+      - each channel in channels
+          li
+            a(href='/channels/' + channel._id)
+              = channel._id + ' (' + channel.count + ')'

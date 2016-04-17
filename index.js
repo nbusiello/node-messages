@@ -11,9 +11,9 @@ const passport = require('passport');
 const routes = require('./src/routes');
 
 const app = express();
+const auth = require('./src/auth');
 
 require('./src/db');
-require('./src/auth');
 
 // Setup server
 
@@ -38,7 +38,13 @@ app.use(passport.session());
 
 app.use('/login', routes.login);
 app.use('/channels', routes.channels);
-app.all('*', (req, res) => res.status(404).send('Not found'));
+
+app.all('*', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect('/login');
+  }
+  res.redirect('/channels');
+});
 
 const port = process.env.PORT || 3000;
 

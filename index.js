@@ -11,8 +11,8 @@ const passport = require('passport');
 const routes = require('./src/routes');
 
 const app = express();
-const auth = require('./src/auth');
 
+require('./src/auth');
 require('./src/db');
 
 // Setup server

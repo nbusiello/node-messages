@@ -2,8 +2,8 @@ html
   head
   body
     ul
-      - each message in messages
-          li= message.text
+      each message in messages
+        li= message.text
 
     if channel
       form(method='post' action='/channels/' + channel)

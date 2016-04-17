@@ -18,7 +18,7 @@ require('./src/auth');
 // Setup server
 
 app.set('views', './src/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));

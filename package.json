@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Servidor de mensajes de node",
   "main": "index.js",
+  "engines": {
+    "node": ">= 4.4.2"
+  },
   "directories": {
     "doc": "docs"
   },

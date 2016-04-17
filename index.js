@@ -9,6 +9,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const routes = require('./src/routes');
+const logger = require('./src/logger');
 
 const app = express();
 
@@ -20,7 +21,7 @@ require('./src/db');
 app.set('views', './src/views');
 app.set('view engine', 'pug');
 
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -49,5 +50,5 @@ app.all('*', (req, res) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  logger.info('Server listening on port', port);
 });

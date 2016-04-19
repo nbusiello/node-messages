@@ -31,19 +31,19 @@ function find(req, res, next) {
     });
 }
 
-function create(req, res, next) {
+function create(req, res) {
 
   const channel = req.params.channel;
   const payload = req.body;
 
   payload.channel = channel;
 
-  Message.create(payload, (err) => {
+  Message.create(payload, (err, message) => {
 
     if (err) {
-      return next(err);
+      return res.status(500).send();
     }
-    next();
+    res.json(message.toJSON());
   });
 }
 
@@ -81,6 +81,6 @@ router.get('/all', filter, find, (req, res) => {
 router
   .route('/:channel')
   .get(filter, find, showMessages)
-  .post(create, filter, find, showMessages);
+  .post(create);
 
 module.exports = router;

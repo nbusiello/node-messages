@@ -1,11 +1,13 @@
-<ul>
+<script src="/public/messages.js"></script>
+
+<ul id="messages-list">
   {{#each messages}}
-  <li>{{text}} ({{ago createdAt}})</li>
+  <li>{{text}} (<span>{{createdAt}}</span>)</li>
   {{/each}}
 </ul>
 
 {{#if channel}}
-<form method="post" action="/channels/{{channel}}">
+<form id="messages-form" method="post" action="/channels/{{channel}}">
   <input type="text" name="text" placeholder="Send a message!" />
   <input type="submit" value="Submit" />
 </form>

@@ -38,15 +38,16 @@ app.use(passport.session());
 
 // Routes
 
+app.use('/public', express.static('public'));
 app.use('/login', routes.login);
 app.use('/channels', routes.channels);
 
-app.all('*', (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.redirect('/login');
-  }
-  res.redirect('/channels');
-});
+// app.all('*', (req, res) => {
+//   if (!req.isAuthenticated()) {
+//     return res.redirect('/login');
+//   }
+//   res.redirect('/channels');
+// });
 
 const port = process.env.PORT || 3000;
 

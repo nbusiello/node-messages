@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const exphbs  = require('express-handlebars');
 const routes = require('./src/routes');
 const logger = require('./src/logger');
 
@@ -18,8 +19,8 @@ require('./src/db');
 
 // Setup server
 
-app.set('views', './src/views');
-app.set('view engine', 'pug');
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));

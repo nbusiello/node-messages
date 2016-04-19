@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const exphbs  = require('express-handlebars');
+const hbs = require('./src/engine');
 const routes = require('./src/routes');
 const logger = require('./src/logger');
 
@@ -19,7 +19,7 @@ require('./src/db');
 
 // Setup server
 
-app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
+app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
 app.use(morgan('dev'));

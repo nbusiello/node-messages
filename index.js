@@ -19,8 +19,8 @@ require('./src/db');
 
 // Setup server
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
+app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
+app.set('view engine', '.hbs');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));

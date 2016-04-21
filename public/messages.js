@@ -2,11 +2,6 @@ $(function() {
 
   var form = $('#messages-form');
 
-  $('li > span').each(function(i, elem) {
-    var date = moment(elem.innerText).fromNow();
-    $(elem).text(date);
-  });
-
   function onSubmit(event) {
 
     $.ajax({
@@ -16,8 +11,8 @@ $(function() {
       data: form.serialize(),
     })
     .done(function (response) {
-      var date = moment(response.createdAt).fromNow();
-      $('#messages-list').prepend('<li>' + response.text + ' (' + date + ')</li>');
+      var message = response.text + ' (' + response.ago + ')';
+      $('#messages-list').prepend($('<li>').text(message));
     });
 
     $("input[name='text']").val('');

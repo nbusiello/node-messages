@@ -1,12 +1,17 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 
 function transform (doc, ret) {
 
   delete ret.__v;
   delete ret._id;
+  delete ret.id;
+  delete ret.channel;
+  delete ret.createdAt;
+  delete ret.updatedAt;
 }
 
 const options = {
@@ -31,5 +36,9 @@ const messageSchema = new mongoose.Schema({
     required: true
   }
 }, options);
+
+messageSchema.virtual('ago').get(function () {
+  return moment(this.createdAt).fromNow();
+});
 
 module.exports = mongoose.model('Message', messageSchema);

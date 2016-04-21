@@ -5,6 +5,7 @@ const Message = require('../models').Message;
 const auth = require('../auth');
 const router = express.Router();
 
+
 function filter(req, res, next) {
 
   const channel = req.params.channel;
@@ -43,7 +44,9 @@ function create(req, res) {
     if (err) {
       return res.status(500).send();
     }
-    res.json(message.toJSON());
+
+    req.io.emit('message', message.toJSON());
+    res.status(201).send();
   });
 }
 

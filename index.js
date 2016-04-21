@@ -13,6 +13,8 @@ const routes = require('./src/routes');
 const logger = require('./src/logger');
 
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
 
 require('./src/auth');
 require('./src/db');
@@ -36,6 +38,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Socket.io
+
+app.use((req, res, next) => {
+
+  req.io = io;
+  next();
+});
+
 // Routes
 
 app.use('/public', express.static('public'));
@@ -51,6 +61,6 @@ app.use('/channels', routes.channels);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+server.listen(port, () => {
   logger.info('Server listening on port', port);
 });

@@ -1,6 +1,12 @@
 $(function() {
 
+  var socket = io.connect('http://localhost:3000');
   var form = $('#messages-form');
+
+  socket.on('message', function (data) {
+    var message = data.text + ' (' + data.ago + ')';
+    $('#messages-list').prepend($('<li>').text(message));
+  });
 
   function onSubmit(event) {
 
@@ -9,10 +15,6 @@ $(function() {
       type: 'POST',
       dataType: 'json',
       data: form.serialize(),
-    })
-    .done(function (response) {
-      var message = response.text + ' (' + response.ago + ')';
-      $('#messages-list').prepend($('<li>').text(message));
     });
 
     $("input[name='text']").val('');

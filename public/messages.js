@@ -4,7 +4,8 @@ $(function() {
   var form = $('#messages-form');
 
   socket.on('message', function (data) {
-    var message = data.text + ' (' + data.ago + ')';
+
+    var message = data.text + ' (' + data.ago + ') - ' + data.user.username;
     $('#messages-list').prepend($('<li>').text(message));
   });
 

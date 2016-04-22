@@ -36,6 +36,9 @@ passport.deserializeUser((id, done) => {
     if (err) {
       return done(err);
     }
+    if (!user) {
+      return done(null, false);
+    }
 
     debug('deserializeUser', user.id);
     done(null, user.toJSON());
@@ -43,6 +46,7 @@ passport.deserializeUser((id, done) => {
 });
 
 function isAuthenticated(req, res, next) {
+
   if (!req.isAuthenticated()) {
     return res.status(401).send('Unauthorized');
   }

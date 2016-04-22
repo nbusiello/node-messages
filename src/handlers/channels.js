@@ -16,6 +16,7 @@ exports.find = function (req, res, next) {
 
   Message
     .find(req.conditions)
+    .populate('user')
     .sort('-createdAt')
     .exec((err, messages) => {
 
@@ -34,6 +35,7 @@ exports.create = function (req, res) {
   const payload = req.body;
 
   payload.channel = channel;
+  payload.user = req.user.id;
 
   Message.create(payload, (err, message) => {
 
@@ -41,8 +43,11 @@ exports.create = function (req, res) {
       return res.status(500).send();
     }
 
-    req.io.emit('message', message.toJSON());
-    res.status(201).send();
+    Message.populate(message, 'user', (err) => {
+
+      req.io.emit('message', message.toJSON());
+      res.status(201).send();
+    });
   });
 }
 

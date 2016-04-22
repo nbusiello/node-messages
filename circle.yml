@@ -2,6 +2,10 @@ machine:
   node:
     version: 4.4.2
 
+dependencies:
+  pre:
+    - npm install -g bower
+
 deployment:
   production:
     branch: master

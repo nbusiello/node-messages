@@ -14,7 +14,7 @@ $(function() {
       url: $(form).attr('action'),
       type: 'POST',
       dataType: 'json',
-      data: form.serialize(),
+      data: form.serialize()
     });
 
     $("input[name='text']").val('');
